@@ -1,29 +1,9 @@
-¡Perfecto! Ahora tenemos toda la información.
-
-Aquí está el código completo y definitivo con tus credenciales de Supabase y la del usuario que ha creado ya integradas.
-
-Este es el único archivo que necesitasitas. No tienes que editar ni modificar absolutamente nada más.
-
-Pasos Finales (y últimos):
-
-Copia el código completo de este bloque.
-
-Reemplaza TODO el contenido de tu archivo index.html en GitHub con este código.
-
-Guarda el cambio ("Comprometer cambios") en GitHub.
-
-Espera uno o dos minutos a que Vercel despliegue la nueva versión automáticamente.
-
-Abre la URL de tu Revista. Debe cargarse directamente y estar 100% funcional.
-
-Código Final, Completo y con tus Credenciales Implementadas
-HTML generado
 <!DOCTYPE html>
 <html lang="es">
 <cabeza>
     <meta conjunto de caracteres=„UTF-8">
     <meta nombre="ventana gráfica" contenido="ancho=ancho del dispositivo, escala inicial=1.0">
-    <título>Trader Survivor - Revista Comercial Profesional V2</título>
+    <tipulo>Trader Survivor - Revista Comercial Profesional V2</tipulo>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="hoja de estilo">
     <link rel="hoja de estilo" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
@@ -33,32 +13,32 @@ HTML generado
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <estilo>
-        /* Paleta de colores: Negro, Verde Fluorescente y Blanco */
-        :raíz {
-            --primaria: #39ff14; --secundaria: #28e000; --fondo: #0a0a0a; --superficie: #141414; --luz superficial: #2a2a2a;
-            --texto: #ffffff; --texto secundario: #a0a0a0; --rojo: #ff4136; --verde: #39ff14; --amarillo: #f59e0b;
+ /* Paleta de colores: Negro, Verde Fluorescente y Blanco */
+ :raíz {
+ --primaria: #39ff14; --secundaria: #28e000; --fondo: #0a0a0a; --superficie: #141414; --luz superficial: #2a2a2a;
+ --texto: #ffffff; --texto secundario: #a0a0a0; --rojo: #ff4136; --verde: #39ff14; --amarillo: #f59e0b;
         }
-        .texto positivo { color: var(--verde); } .texto negativo { color: var(--rojo); } .texto neutral { color: var(--texto secundario); }
-        cuerpo { familia de fuentes: 'Interfaz de usuario de Segoe', 'Roboto', sistema-ui, -sistema-manzana, sans-serif; color de fondo: var(--fondo); color: var(--texto); margen: 0; acolchado: 0; }
-        .app-container-wrapper { visualizar: ninguno; }
-        .app-container { ancho máximo: 1600px; margen: 0 auto; acolchado: 1.5rem; }
-        .nav-tabs { borde inferior: 1px sólido var(--luz superficial); }
-        .nav-tab { acolchado: 0,75rem 1.5rem; cursor: puntero; transición: todos 0,2s entrada-salida; color: var(--texto secundario); borde inferior: 3px sólido transparente; margen inferior: -1px; espacio en blanco: nowrap; }
-        .nav-tab.activo { color: var(--texto); borde-color-inferior: var(--primaria); font-weight: 600; }
-        .nav-tab:hover:no(.activo) { color: var(--texto); borde-color-inferior: var(--luz superficial); }
-        .sección-contenido { visualizar: ninguno; acolchado: 1.5rem 0; margen inferior: 2rem; }
-        .sección-contenido.activo { visualizar: bloque; }
-        .tarjeta métrica, .account-card { color de fondo: var(--superficie); radio fronterizo: 0,5rem; acolchado: 1.5rem; frontera: 1px sólido var(--luz superficial); transición: todos 0,2s entrada-salida; }
-        .tarjeta métrica:hover, .account-card:hover { color del borde: var(--primaria); caja-sombra: 0 0 20px rgba(57, 255, 20, 0,1); transformar: traducirY(-2px); }
-        .account-card.seleccionado { color del borde: var(--primaria); caja-sombra: 0 0 25px rgba(57, 255, 20, 0,15); }
-        .día calendario { ancho: 100%; relación de aspecto: 1 / 1; visualizar: flex; flex-direction: columna; align-items: centro; justificar-contenido: centro; radio fronterizo: 0,25rem; cursor: puntero; transición: todos 0,2s ease; posición: relativo; color de fondo: var(--superficie); frontera: 1px sólido var(--surface-light); }
-        .día calendario.vacío { color de fondo: transparente; color del borde: var(--fondo); cursor: predeterminado; } .día calendario.vacío:hover { transformar: ninguno; }
-        .día calendario.beneficio { color de fondo: rgba(57, 255, 20, 0,05); color del borde: var(--verde); }
-        .día calendario.pérdida { color de fondo: rgba(255, 65, 54, 0,05); color del borde: var(--rojo); }
-        .día calendario:no(.vacío):hover { transformar: escala(1.05); índice z: 10; color del borde: var(--primaria); }
-        .número de día { tamaño de fuente: 1.2rem; font-weight: 600; }
-        botón { color de fondo: var(--luz superficial); color: var(--texto); frontera: 1px sólido var(--luz superficial); radio fronterizo: 0,25rem; acolchado: 0,6rem 1.2rem; cursor: puntero; transición: todos 0,2s ease; font-weight: 500; }
-        botón:hover { color de fondo: var(--primaria); color del borde: var(--primaria); color: var(--fondo); font-weight: bold; }
+ .texto positivo { color: var(--verde); } .texto negativo { color: var(--rojo); } .texto neutro { color: var(--texto secundario); }
+ cuerpo { familia de fuentes: 'Interfaz de usuario de Segoe', 'Roboto', sistema-ui, -sistema-manzana, sans-serif; color de fondo: var(--fondo); color: var(--texto); marca: 0; aclamado: 0; }
+ .app-container-wrapper { visualizar: ninguno; }
+ .app-container { ancho máximo: 1600px; margen: 0 auto; acompañado: 1.5rem; }
+ .nav-tabs { borde inferior: 1px sólido var(--luz superficial); }
+ .nav-tab { acercado: 0,75rem 1.5rem; cursor: apostador; transición: todos 0,2s entrada-salida; color: var(--texto secundario); borde inferior: 3px sólido transparente; marca inferior: -1px; espacio en blanco: nowrap; }
+ .nav-tab.activo { color: var(--texto); borde-color-inferior: var(--primaria); peso de fuente: 600; }
+ .nav-tab:hover:no(.activo) { color: var(--texto); borde-color-inferior: var(--luz superficial); }
+ .sección-contenido { visualizar: ninguno; acompañado: 1.5rem 0; margen inferior: 2rem; }
+ .sección-contenido.activo { visualizar: bloque; }
+ .tarjeta métrica, .account-card { color de fondo: var(--superficie); radio fronterizo: 0,5rem; acompañado: 1,5rem; frontera: 1px sólido var(--luz superficial); transición: todos 0,2s entrada-salida; }
+ .tarjeta métrica:hover, .account-card:hover { color del borde: var(--primaria); caja-sombra: 0 0 20px rgba(57, 255, 20, 0,1); transformar: traducirY(-2px); }
+ .account-card.seleccionado { color del borde: var(--primaria); caja-sombra: 0 0 25px rgba(57, 255, 20, 0,15); }
+ .día calendario { ancho: 100%; relación de aspecto: 1 / 1; visualizar: flex; flex-direction: columna; align-items: centro; justificar-contenido: centro; radio fronterizo: 0,25rem; cursor: apostero; transición: todos 0,2s facilidad; posición: relativo; color de fondo: var(--superficie); frontera: 1px sólido var(--superficie-luz); }
+ .día calendario.vacío { color de fondo: transparente; color del borde: var(--fondo); cursor: predeterminado; } .día calendario.vacío:hover { transformar: ninguno; }
+ .día calendario.beneficio { color de fondo: rgba(57, 255, 20, 0,05); color del borde: var(--verde); }
+ .día calendario.pérdida { color de fondo: rgba(255, 65, 54, 0,05); color del borde: var(--rojo); }
+ .día calendario:no(.vacío):hover { transformar: escala(1.05); índice z: 10; color del borde: var(--primaria); }
+ .número de día { tamaño de fuente: 1,2rem; peso de fuente: 600; }
+ botón { color de fondo: var(--luz superficial); color: var(--texto); frontera: 1px sólido var(--luz superficial); radio frontera: 0,25rem; acompañado: 0,6rem 1.2rem; cursor: apostador; transición: todos 0,2s facilidad; peso de fuente: 500; }
+ botón:hover { color de fondo: var(--primaria); color del borde: var(--primaria); color: var(--fondo); peso de fuente: negrita; }
         botón.primario { color de fondo: var(--primaria); color del borde: var(--primaria); color: var(--fondo); font-weight: bold; }
         botón.peligro { color de fondo: var(--rojo); color del borde: var(--rojo); }
         #tabla de operaciones td botón, #cuentas-contenedor botón, #finanzas-tabla-cuerpo td botón { acolchado: 0,3rem 0,6rem; tamaño de fuente: 0,875rem; color de fondo: transparente; frontera: ninguno; }
