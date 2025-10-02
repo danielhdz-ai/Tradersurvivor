@@ -1,0 +1,28 @@
+{
+  "name": "tradersurvivor",
+  "version": "1.0.0",
+  "description": "Trading Journal Profesional con sistema de suscripciones",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'No build step required for static site'",
+    "start": "echo 'Static site - no start command'"
+  },
+  "dependencies": {
+    "stripe": "^14.0.0",
+    "firebase-admin": "^11.11.0"
+  },
+  "devDependencies": {
+    "@vercel/node": "^3.0.0"
+  },
+  "keywords": [
+    "trading",
+    "journal",
+    "finance",
+    "stripe",
+    "firebase",
+    "subscription"
+  ],
+  "author": "TraderSurvivor",
+  "license": "MIT"
+}

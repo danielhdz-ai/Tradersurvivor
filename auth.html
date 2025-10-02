@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trader Survivor - Acceso</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/all.min.css">
+    <style>
+        /* Paleta de colores: Negro, Verde Fluorescente y Blanco */
+        :root {
+            --primary: #39ff14;       /* Verde Fluorescente */
+            --secondary: #28e000;     /* Verde Fluorescente más oscuro para hover */
+            --background: #0a0a0a;     /* Negro Oscuro */
+            --surface: #141414;       /* Negro ligeramente más claro para tarjetas */
+            --surface-light: #2a2a2a; /* Gris muy oscuro para bordes e inactivos */
+            --text: #ffffff;           /* Blanco Puro */
+            --text-secondary: #a0a0a0; /* Gris claro para texto secundario */
+            --red: #ff4136;            /* Rojo brillante para pérdidas */
+            --green: #39ff14;          /* Verde Fluorescente para ganancias */
+            --yellow: #f59e0b;         /* Amarillo para métricas neutrales */
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', system-ui, -apple-system, sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .auth-container {
+            background-color: var(--surface);
+            border: 1px solid var(--surface-light);
+            border-radius: 0.5rem;
+            padding: 2rem;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 0 30px rgba(57, 255, 20, 0.1);
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .auth-header h1 {
+            color: var(--text);
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .auth-header .logo {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--background);
+            border: 1px solid var(--surface-light);
+            border-radius: 0.25rem;
+            color: var(--text);
+            font-size: 1rem;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(57, 255, 20, 0.1);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 0.25rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-bottom: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--background);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--surface-light);
+        }
+
+        .btn-secondary:hover {
+            color: var(--text);
+            border-color: var(--primary);
+        }
+
+        .auth-switch {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        .auth-switch a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .auth-switch a:hover {
+            color: var(--secondary);
+        }
+
+        .error-message {
+            background-color: rgba(255, 65, 54, 0.1);
+            border: 1px solid var(--red);
+            color: var(--red);
+            padding: 0.75rem;
+            border-radius: 0.25rem;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+        }
+
+        .success-message {
+            background-color: rgba(57, 255, 20, 0.1);
+            border: 1px solid var(--green);
+            color: var(--green);
+            padding: 0.75rem;
+            border-radius: 0.25rem;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+        }
+
+        .loading {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(10, 10, 10, 0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .spinner {
+            border: 4px solid var(--surface-light);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary);
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="auth-container">
+        <div class="auth-header">
+            <div class="logo">
+                <i class="fas fa-rocket"></i>
+            </div>
+            <h1>Trader Survivor</h1>
+            <p class="text-text-secondary">Trading Journal Profesional</p>
+        </div>
+
+        <div id="error-message" class="error-message hidden"></div>
+        <div id="success-message" class="success-message hidden"></div>
+
+        <!-- Login Form -->
+        <form id="login-form">
+            <div class="form-group">
+                <label for="login-email">Correo Electrónico</label>
+                <input type="email" id="login-email" required>
+            </div>
+            <div class="form-group">
+                <label for="login-password">Contraseña</label>
+                <input type="password" id="login-password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-sign-in-alt mr-2"></i>
+                Iniciar Sesión
+            </button>
+        </form>
+
+        <!-- Register Form -->
+        <form id="register-form" class="hidden">
+            <div class="form-group">
+                <label for="register-name">Nombre Completo</label>
+                <input type="text" id="register-name" required>
+            </div>
+            <div class="form-group">
+                <label for="register-email">Correo Electrónico</label>
+                <input type="email" id="register-email" required>
+            </div>
+            <div class="form-group">
+                <label for="register-password">Contraseña</label>
+                <input type="password" id="register-password" required minlength="6">
+            </div>
+            <div class="form-group">
+                <label for="register-confirm-password">Confirmar Contraseña</label>
+                <input type="password" id="register-confirm-password" required minlength="6">
+            </div>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-user-plus mr-2"></i>
+                Crear Cuenta
+            </button>
+        </form>
+
+        <div class="auth-switch">
+            <span id="switch-text">¿No tienes cuenta?</span>
+            <a href="#" id="switch-link">Regístrate aquí</a>
+        </div>
+    </div>
+
+    <script type="module">
+        import { authService } from './firebase-config.js';
+
+        // DOM Elements
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        const switchLink = document.getElementById('switch-link');
+        const switchText = document.getElementById('switch-text');
+        const errorMessage = document.getElementById('error-message');
+        const successMessage = document.getElementById('success-message');
+        const loading = document.getElementById('loading');
+
+        let isLoginMode = true;
+
+        // Show/Hide loading
+        function showLoading() {
+            loading.style.display = 'flex';
+        }
+
+        function hideLoading() {
+            loading.style.display = 'none';
+        }
+
+        // Show error message
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.classList.remove('hidden');
+            successMessage.classList.add('hidden');
+        }
+
+        // Show success message
+        function showSuccess(message) {
+            successMessage.textContent = message;
+            successMessage.classList.remove('hidden');
+            errorMessage.classList.add('hidden');
+        }
+
+        // Hide messages
+        function hideMessages() {
+            errorMessage.classList.add('hidden');
+            successMessage.classList.add('hidden');
+        }
+
+        // Switch between login and register forms
+        function switchMode() {
+            isLoginMode = !isLoginMode;
+            hideMessages();
+
+            if (isLoginMode) {
+                loginForm.classList.remove('hidden');
+                registerForm.classList.add('hidden');
+                switchText.textContent = '¿No tienes cuenta?';
+                switchLink.textContent = 'Regístrate aquí';
+            } else {
+                loginForm.classList.add('hidden');
+                registerForm.classList.remove('hidden');
+                switchText.textContent = '¿Ya tienes cuenta?';
+                switchLink.textContent = 'Inicia sesión aquí';
+            }
+        }
+
+        // Handle login
+        async function handleLogin(e) {
+            e.preventDefault();
+            hideMessages();
+            showLoading();
+
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            try {
+                const result = await authService.login(email, password);
+                
+                if (result.success) {
+                    showSuccess('¡Inicio de sesión exitoso! Redirigiendo...');
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1500);
+                } else {
+                    showError(getErrorMessage(result.error));
+                }
+            } catch (error) {
+                showError('Error de conexión. Inténtalo de nuevo.');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Handle register
+        async function handleRegister(e) {
+            e.preventDefault();
+            hideMessages();
+
+            const name = document.getElementById('register-name').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('register-confirm-password').value;
+
+            // Validate passwords match
+            if (password !== confirmPassword) {
+                showError('Las contraseñas no coinciden');
+                hideLoading(); // Ensure loading is hidden if validation fails
+                return;
+            }
+
+            showLoading();
+
+            try {
+                const result = await authService.register(email, password, name);
+                
+                if (result.success) {
+                    showSuccess('¡Cuenta creada exitosamente! Redirigiendo...');
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1500);
+                } else {
+                    showError(getErrorMessage(result.error));
+                }
+            } catch (error) {
+                showError('Error de conexión. Inténtalo de nuevo.');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Get user-friendly error messages
+        function getErrorMessage(error) {
+            switch (error) {
+                case 'auth/user-not-found':
+                    return 'No existe una cuenta con este correo electrónico';
+                case 'auth/wrong-password':
+                    return 'Contraseña incorrecta';
+                case 'auth/email-already-in-use':
+                    return 'Ya existe una cuenta con este correo electrónico';
+                case 'auth/weak-password':
+                    return 'La contraseña debe tener al menos 6 caracteres';
+                case 'auth/invalid-email':
+                    return 'Correo electrónico inválido';
+                case 'auth/too-many-requests':
+                    return 'Demasiados intentos fallidos. Inténtalo más tarde';
+                default:
+                    return error || 'Ha ocurrido un error. Inténtalo de nuevo';
+            }
+        }
+
+        // Check if user is already logged in
+        authService.onAuthStateChanged((user) => {
+            if (user) {
+                // User is signed in, redirect to main app
+                window.location.href = 'index.html';
+            }
+        });
+
+        // Event listeners
+        switchLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            switchMode();
+        });
+
+        loginForm.addEventListener('submit', handleLogin);
+        registerForm.addEventListener('submit', handleRegister);
+    </script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pago Cancelado - Trader Survivor</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/all.min.css">
+    <style>
+        :root {
+            --primary: #ff4136; /* Rojo para indicar cancelación/error */
+            --background: #0a0a0a;
+            --surface: #141414;
+            --text: #ffffff;
+            --text-secondary: #a0a0a0;
+        }
+        body {
+            font-family: 'Segoe UI', 'Roboto', system-ui, -apple-system, sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .container {
+            background-color: var(--surface);
+            border: 1px solid var(--surface-light);
+            border-radius: 0.5rem;
+            padding: 3rem;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 0 30px rgba(255, 65, 54, 0.1); /* Sombra roja */
+        }
+        .icon {
+            color: var(--primary);
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+        h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+        .btn {
+            background-color: var(--primary);
+            color: var(--text);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.25rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+        }
+        .btn:hover {
+            background-color: #e63946; /* Rojo un poco más oscuro */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon">
+            <i class="fas fa-times-circle"></i>
+        </div>
+        <h1>¡Pago Cancelado!</h1>
+        <p>Tu proceso de pago ha sido cancelado o no se ha podido completar. Puedes intentarlo de nuevo.</p>
+        <a href="index.html" class="btn">Volver a la aplicación</a>
+    </div>
+</body>
+</html>
